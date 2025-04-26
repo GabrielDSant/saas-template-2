@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\Estilos;
 
 class dashboardController extends Controller
 {
@@ -46,7 +47,10 @@ class dashboardController extends Controller
             (object) ['path' => 'generated/image3.png'],
         ];
 
-        return view('pages.cliente.geracoes', compact('lastGeneratedImages'));
+        // Buscar estilos do banco de dados
+        $estilos = Estilos::all();
+
+        return view('pages.cliente.geracoes', compact('lastGeneratedImages', 'estilos'));
     }
 
     public function adminUsuarios()

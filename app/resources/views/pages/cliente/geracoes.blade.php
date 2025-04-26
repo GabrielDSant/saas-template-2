@@ -2,17 +2,18 @@
 <html>
 
 @include('components.head')
+<link rel="stylesheet" href="{{ asset('node_modules/slick-carousel/slick/slick.css') }}">
+<script src="{{ asset('node_modules/slick-carousel/slick/slick.min.js') }}"></script>
+<style>
+    .style-card {
+        transition: all 0.3s ease;
+    }
 
-    <style>
-        .style-card {
-            transition: all 0.3s ease;
-        }
-
-        .style-card.selected {
-            border-color: #2563eb;
-            background-color: #ebf8ff;
-        }
-    </style>
+    .style-card.selected {
+        border-color: #2563eb;
+        background-color: #ebf8ff;
+    }
+</style>
 
 <body class="bg-gray-100">
     @include('components.header')
@@ -34,31 +35,45 @@
                                 data-original="#000000" />
                         </svg>
                         <span id="fileLabel" class="text-sm font-medium">Clique para fazer upload</span>
-                        <input type="file" id="uploadFile1" name="image" class="hidden" required multiple />
-                        <p class="text-xs font-medium text-slate-400 mt-2">PNG, JPG, SVG, WEBP, e GIF são permitidos.</p>
+                        <input type="file" id="uploadFile1" name="image" class="hidden" required />
+                        <p class="text-xs font-medium text-slate-400 mt-2">PNG, JPG, SVG, WEBP, e GIF são permitidos.
+                        </p>
                     </label>
+
+                    <!-- Pré-visualização da imagem -->
+                    <h3 class="text-sm mt-4 font-medium text-gray-700 mb-2">Imagem selecionada:</h3>
+                    <div id="previewContainer" class="mt-4 hidden flex justify-center">
+                        <img id="imagePreview" src="" alt="Pré-visualização da imagem"
+                            class="w-full max-w-md rounded-lg shadow-md">
+                    </div>
 
                     <!-- Style Selection -->
                     <div class="mt-8">
                         <h2 class="text-lg font-semibold text-gray-700 mb-4">Escolha os estilos:</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg" data-style="perfil_profissional">
-                                <img src="{{ asset('img/lego.png') }}" alt="Perfil Profissional"
-                                    class="w-full h-46 object-cover rounded-lg mb-2">
-                                <p class="text-center font-medium text-gray-700">Estilo Lego</p>
-                            </div>
-                            <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg" data-style="estilo_pintura">
-                                <img src="{{ asset('img/simpsons.png') }}" alt="Estilo Pintura"
-                                    class="w-full h-46 object-cover rounded-lg mb-2">
-                                <p class="text-center font-medium text-gray-700">Estilo Simpsons</p>
-                            </div>
-                            <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg" data-style="estilo_cartoon">
-                                <img src="{{ asset('img/celular.png') }}" alt="Estilo Cartoon"
-                                    class="w-full h-46 object-cover rounded-lg mb-2">
-                                <p class="text-center font-medium text-gray-700">Estilo Ghibli</p>
+                        <div class="hidden lg:grid grid-cols-3 gap-6">
+                            @foreach ($estilos as $estilo)
+                                <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg"
+                                    data-style="{{ $estilo->name }}">
+                                    <img src="{{ asset('storage/' . $estilo->image_path) }}" alt="{{ $estilo->name }}"
+                                        class="w-full h-46 object-cover rounded-lg mb-2">
+                                    <p class="text-center font-medium text-gray-700">{{ $estilo->name }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="lg:hidden">
+                            <div class="carousel">
+                                @foreach ($estilos as $estilo)
+                                    <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg"
+                                        data-style="{{ $estilo->name }}">
+                                        <img src="{{ asset('storage/' . $estilo->image_path) }}"
+                                            alt="{{ $estilo->name }}" class="w-full h-46 object-cover rounded-lg mb-2">
+                                        <p class="text-center font-medium text-gray-700">{{ $estilo->name }}</p>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         <input type="hidden" name="styles" id="selectedStyles" value="" required>
+                        <!-- Campo oculto para armazenar os estilos selecionados -->
                     </div>
 
                     <button type="submit"
@@ -72,7 +87,7 @@
             <div class="mt-12">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4">Últimas Imagens Geradas</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach($lastGeneratedImages as $image)
+                    @foreach ($lastGeneratedImages as $image)
                         <div class="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
                             <img src="{{ asset('storage/' . $image->path) }}" alt="Imagem Gerada"
                                 class="w-full h-40 object-cover">
@@ -85,11 +100,37 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#uploadFile1').on('change', function () {
+        $(document).ready(function() {
+            // Pré-visualização da imagem
+            $('#uploadFile1').on('change', function() {
                 const files = $(this)[0].files;
                 const fileNames = Array.from(files).map(file => file.name).join(', ');
                 $('#fileLabel').text(fileNames || 'Clique para fazer upload');
+
+                if (files && files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#imagePreview').attr('src', e.target.result);
+                        $('#previewContainer').removeClass('hidden');
+                    };
+                    reader.readAsDataURL(files[0]);
+                }
+            });
+
+            $('.carousel').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                dots: true,
+            });
+
+            $('.style-card').on('click', function() {
+                $(this).toggleClass('selected');
+                const selectedStyles = $('.style-card.selected').map(function() {
+                    return $(this).data('style');
+                }).get();
+                $('#selectedStyles').val(selectedStyles.join(','));
             });
         });
     </script>
