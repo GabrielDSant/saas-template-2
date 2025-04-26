@@ -1,7 +1,21 @@
 <!doctype html>
 <html>
 
-@include('components.head')
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @vite('resources/css/app.css')
+    <style>
+        .style-card {
+            transition: all 0.3s ease;
+        }
+
+        .style-card.selected {
+            border-color: #2563eb;
+            background-color: #ebf8ff;
+        }
+    </style>
+</head>
 
 <body class="bg-gray-100">
     @include('components.header')

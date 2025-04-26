@@ -1,10 +1,8 @@
 <!doctype html>
 <html>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    @vite('resources/css/app.css')
+@include('components.head')
+
     <style>
         .style-card {
             transition: all 0.3s ease;
@@ -15,7 +13,6 @@
             background-color: #ebf8ff;
         }
     </style>
-</head>
 
 <body class="bg-gray-100">
     @include('components.header')
