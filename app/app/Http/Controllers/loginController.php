@@ -22,10 +22,11 @@ class loginController extends Controller
         if (Auth::attempt($credentials)) { // Uso correto do Auth
             $user = Auth::user(); // Uso correto do Auth
 
+            // Redireciona para o dashboard correto com base na role
             if ($user->hasRole('admin')) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('dashboard.admin');
             } elseif ($user->hasRole('cliente')) {
-                return redirect()->route('cliente.dashboard');
+                return redirect()->route('dashboard.cliente');
             }
 
             Auth::logout(); // Uso correto do Auth

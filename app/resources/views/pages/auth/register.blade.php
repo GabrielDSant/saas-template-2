@@ -17,7 +17,7 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="/register" method="POST">
+            <form class="space-y-6" action="/auth/register" method="POST">
                 @csrf <!-- Adiciona o token CSRF -->
                 <div>
                     <label for="name" class="block text-sm/6 font-medium text-gray-900">Nome completo</label>
