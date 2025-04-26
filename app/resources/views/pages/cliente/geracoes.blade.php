@@ -33,8 +33,8 @@
                                 d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
                                 data-original="#000000" />
                         </svg>
-                        <span class="text-sm font-medium">Clique para fazer upload</span>
-                        <input type="file" id='uploadFile1' name="image" class="hidden" required />
+                        <span id="fileLabel" class="text-sm font-medium">Clique para fazer upload</span>
+                        <input type="file" id="uploadFile1" name="image" class="hidden" required multiple />
                         <p class="text-xs font-medium text-slate-400 mt-2">PNG, JPG, SVG, WEBP, e GIF são permitidos.</p>
                     </label>
 
@@ -83,24 +83,14 @@
         </main>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const styleCards = document.querySelectorAll('.style-card');
-            const selectedStylesInput = document.getElementById('selectedStyles');
-
-            styleCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('selected');
-                    updateSelectedStyles();
-                });
+        $(document).ready(function () {
+            $('#uploadFile1').on('change', function () {
+                const files = $(this)[0].files;
+                const fileNames = Array.from(files).map(file => file.name).join(', ');
+                $('#fileLabel').text(fileNames || 'Clique para fazer upload');
             });
-
-            function updateSelectedStyles() {
-                const selectedStyles = Array.from(styleCards)
-                    .filter(card => card.classList.contains('selected'))
-                    .map(card => card.getAttribute('data-style'));
-                selectedStylesInput.value = selectedStyles.join(',');
-            }
         });
     </script>
 </body>

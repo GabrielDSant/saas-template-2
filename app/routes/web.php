@@ -32,9 +32,7 @@ Route::prefix('dashboard')->middleware(CheckIfAuthenticated::class)->group(funct
     Route::get('/cliente', [dashboardController::class, 'clienteDashboard'])->name('dashboard.cliente');
     Route::get('/settings', [dashboardController::class, 'settings'])->name('dashboard.settings');
     Route::get('/inicio', [dashboardController::class, 'inicio'])->name('dashboard.inicio');
-    Route::get('/historico', [dashboardController::class, 'historico'])->name('dashboard.historico');
     Route::get('/creditos', [dashboardController::class, 'creditos'])->name('dashboard.creditos');
-    Route::get('/perfil', [dashboardController::class, 'perfil'])->name('dashboard.perfil');
     Route::get('/geracoes', [dashboardController::class, 'geracoes'])->name('dashboard.geracoes');
     Route::post('/geracoes', [geracaoController::class, 'gerarImagem'])->name('gerar.imagem');
 });

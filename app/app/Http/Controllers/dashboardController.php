@@ -54,16 +54,7 @@ class dashboardController extends Controller
         // Lógica para carregar a página de usuários do admin
         return view('pages.admin.usuarios');
     }
-    public function historico()
-    {
-        // Lógica para carregar a página de usuários do admin
-        return view('pages.cliente.historico');
-    }
-    public function perfil()
-    {
-        // Lógica para carregar a página de usuários do admin
-        return view('pages.cliente.perfil');
-    }
+
     public function creditos()
     {
         // Lógica para carregar a página de usuários do admin
