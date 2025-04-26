@@ -48,4 +48,25 @@ class dashboardController extends Controller
 
         return view('pages.cliente.geracoes', compact('lastGeneratedImages'));
     }
+
+    public function adminUsuarios()
+    {
+        // Lógica para carregar a página de usuários do admin
+        return view('pages.admin.usuarios');
+    }
+    public function historico()
+    {
+        // Lógica para carregar a página de usuários do admin
+        return view('pages.admin.usuarios');
+    }
+    public function perfil()
+    {
+        // Lógica para carregar a página de usuários do admin
+        return view('pages.admin.usuarios');
+    }
+    public function adminEstatisticas()
+    {
+        // Lógica para carregar a página de estatísticas do admin
+        return view('pages.admin.estatisticas');
+    }
 }
