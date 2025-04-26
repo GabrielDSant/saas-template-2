@@ -35,17 +35,24 @@ class loginController extends Controller
         return redirect()->route('login')->withErrors(['email' => 'Invalid credentials.']);
     }
 
+    public function registerPage()
+    {
+        return view('pages.auth.register');
+    }
+
     public function register(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'birthdate' => 'required|date|before:today',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = \App\Models\User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'birthdate' => $request->birthdate,
             'password' => bcrypt($request->password),
         ]);
 

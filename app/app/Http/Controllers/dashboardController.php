@@ -11,12 +11,24 @@ class dashboardController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole('admin')) {
-            return view('pages.admin.dashboard');
+            return redirect()->route('dashboard.admin');
         } elseif ($user->hasRole('cliente')) {
-            return view('pages.cliente.dashboard');
+            return redirect()->route('dashboard.cliente');
         }
 
         abort(403, 'Unauthorized role.');
+    }
+
+    public function adminDashboard()
+    {
+        // Lógica para carregar o dashboard do admin
+        return view('pages.admin.dashboard');
+    }
+
+    public function clienteDashboard()
+    {
+        // Lógica para carregar o dashboard do cliente
+        return view('pages.cliente.dashboard');
     }
 
     public function settings()

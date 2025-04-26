@@ -22,6 +22,7 @@ class SocialAuthController extends Controller
             [
                 'name' => $googleUser->getName(),
                 'password' => bcrypt(Str::random(16)), // Senha aleatória
+                'birthdate' => now()->subYears(18)->toDateString(), // Data de nascimento padrão
             ]
         );
 
