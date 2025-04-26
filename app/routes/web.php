@@ -6,6 +6,7 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\geracaoController;
+use App\Http\Controllers\creditosController;
 use App\Http\Middleware\CheckIfAuthenticated;
 
 
@@ -36,4 +37,10 @@ Route::prefix('dashboard')->middleware(CheckIfAuthenticated::class)->group(funct
     Route::get('/perfil', [dashboardController::class, 'perfil'])->name('dashboard.perfil');
     Route::get('/geracoes', [dashboardController::class, 'geracoes'])->name('dashboard.geracoes');
     Route::post('/geracoes', [geracaoController::class, 'gerarImagem'])->name('gerar.imagem');
+});
+
+Route::prefix('api')->group(function () {
+    Route::get('/creditos', [creditosController::class, 'getCreditos'])->name('api.creditos');
+    Route::post('/stripe/callback', [creditosController::class, 'stripeCallback'])->name('api.stripe.callback');
+    Route::get('/stripe/checkout', [creditosController::class, 'createCheckoutSession'])->name('api.stripe.checkout');
 });
