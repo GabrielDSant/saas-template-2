@@ -43,19 +43,19 @@
                         <h2 class="text-lg font-semibold text-gray-700 mb-4">Escolha os estilos:</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg" data-style="perfil_profissional">
-                                <img src="{{ asset('images/perfil_profissional_example.png') }}" alt="Perfil Profissional"
-                                    class="w-full h-32 object-cover rounded-lg mb-2">
-                                <p class="text-center font-medium text-gray-700">Perfil Profissional</p>
+                                <img src="{{ asset('img/lego.png') }}" alt="Perfil Profissional"
+                                    class="w-full h-46 object-cover rounded-lg mb-2">
+                                <p class="text-center font-medium text-gray-700">Estilo Lego</p>
                             </div>
                             <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg" data-style="estilo_pintura">
-                                <img src="{{ asset('images/estilo_pintura_example.png') }}" alt="Estilo Pintura"
-                                    class="w-full h-32 object-cover rounded-lg mb-2">
-                                <p class="text-center font-medium text-gray-700">Estilo Pintura</p>
+                                <img src="{{ asset('img/simpsons.png') }}" alt="Estilo Pintura"
+                                    class="w-full h-46 object-cover rounded-lg mb-2">
+                                <p class="text-center font-medium text-gray-700">Estilo Simpsons</p>
                             </div>
                             <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg" data-style="estilo_cartoon">
-                                <img src="{{ asset('images/estilo_cartoon_example.png') }}" alt="Estilo Cartoon"
-                                    class="w-full h-32 object-cover rounded-lg mb-2">
-                                <p class="text-center font-medium text-gray-700">Estilo Cartoon</p>
+                                <img src="{{ asset('img/celular.png') }}" alt="Estilo Cartoon"
+                                    class="w-full h-46 object-cover rounded-lg mb-2">
+                                <p class="text-center font-medium text-gray-700">Estilo Ghibli</p>
                             </div>
                         </div>
                         <input type="hidden" name="styles" id="selectedStyles" value="" required>
