@@ -5,6 +5,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\geracaoController;
 
 Route::get('/', [homeController::class, 'home'])->name('home');
 
@@ -25,4 +26,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/cliente', [dashboardController::class, 'clienteDashboard'])->name('dashboard.cliente');
     Route::get('/settings', [dashboardController::class, 'settings'])->name('dashboard.settings');
     Route::get('/inicio', [dashboardController::class, 'inicio'])->name('dashboard.inicio');
+    Route::get('/geracoes', [dashboardController::class, 'geracoes'])->name('dashboard.geracoes');
 });
+
+// Nova rota para geração de imagens
+Route::post('/gerar-imagem', [geracaoController::class, 'gerarImagem'])->name('gerar.imagem');

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    @include('components.admin.header')
+    @include('components.header')
     <div class="flex">
         <!-- Main Content -->
         <main class="w-full bg-gray-200 min-h-screen transition-all main">

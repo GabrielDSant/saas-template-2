@@ -36,4 +36,16 @@ class dashboardController extends Controller
         // Lógica para carregar a página de configurações
         return view('pages.auth.settings');
     }
+
+    public function geracoes()
+    {
+        // Simulação de busca das últimas imagens geradas
+        $lastGeneratedImages = [
+            (object) ['path' => 'generated/image1.png'],
+            (object) ['path' => 'generated/image2.png'],
+            (object) ['path' => 'generated/image3.png'],
+        ];
+
+        return view('pages.cliente.geracoes', compact('lastGeneratedImages'));
+    }
 }
