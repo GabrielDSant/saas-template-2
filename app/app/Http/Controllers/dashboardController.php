@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Estilos;
+use App\Models\GeneratedImage;
 
 class dashboardController extends Controller
 {
@@ -32,25 +33,16 @@ class dashboardController extends Controller
         return view('pages.cliente.dashboard');
     }
 
-    public function settings()
-    {
-        // Lógica para carregar a página de configurações
-        return view('pages.auth.settings');
-    }
 
     public function geracoes()
     {
-        // Simulação de busca das últimas imagens geradas
-        $lastGeneratedImages = [
-            (object) ['path' => 'generated/image1.png'],
-            (object) ['path' => 'generated/image2.png'],
-            (object) ['path' => 'generated/image3.png'],
-        ];
+        // Buscar as últimas imagens geradas do banco de dados
+        $generatedImages = GeneratedImage::where('user_id', auth()->id())->latest()->get();
 
         // Buscar estilos do banco de dados
         $estilos = Estilos::all();
 
-        return view('pages.cliente.geracoes', compact('lastGeneratedImages', 'estilos'));
+        return view('pages.cliente.geracoes', compact('generatedImages', 'estilos'));
     }
 
     public function adminUsuarios()

@@ -14,7 +14,16 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="/auth/register" method="POST">
+            @if ($errors->any())
+                <div class="mb-4 text-sm text-red-600">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form class="space-y-6" action="{{route('auth.register.post')}}" method="POST">
                 @csrf <!-- Adiciona o token CSRF -->
                 <div>
                     <label for="name" class="block text-sm/6 font-medium text-gray-900">Nome completo</label>

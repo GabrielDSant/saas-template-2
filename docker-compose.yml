@@ -25,7 +25,18 @@ services:
       MYSQL_PASSWORD: saas_password
       MYSQL_ROOT_PASSWORD: root_password
     volumes:
-      - db_data:/var/lib/mysql
+      - ./db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - whatsapp-bot-network
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
     networks:
       - whatsapp-bot-network
 

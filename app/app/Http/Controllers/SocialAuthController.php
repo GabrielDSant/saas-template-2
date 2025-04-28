@@ -28,6 +28,8 @@ class SocialAuthController extends Controller
 
         Auth::login($user);
 
+        $user->assignRole('cliente');
+
         // Redireciona para o dashboard correto com base na role
         if ($user->hasRole('admin')) {
             return redirect()->route('dashboard.admin');
@@ -38,4 +40,5 @@ class SocialAuthController extends Controller
         Auth::logout();
         return redirect()->route('auth.login')->withErrors(['role' => 'Unauthorized role.']);
     }
+    
 }

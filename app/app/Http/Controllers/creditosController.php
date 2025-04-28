@@ -36,23 +36,27 @@ class creditosController extends Controller
 
     public function createCheckoutSession(Request $request)
     {
-        $user = $request->user();
+        try {
+            $user = $request->user();
 
-        $session = Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price' => 'prod_SCYichnAzgsSLo', // ID do preço do produto na Stripe
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => route('dashboard.creditos') . '?success=true',
-            'cancel_url' => route('dashboard.creditos') . '?canceled=true',
-            'metadata' => [
-                'user_id' => $user->id,
-            ],
-        ]);
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price' => 'prod_SCYichnAzgsSLo',
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'success_url' => route('dashboard.creditos') . '?success=true',
+                'cancel_url' => route('dashboard.creditos') . '?canceled=true',
+                'metadata' => [
+                    'user_id' => $user->id,
+                ],
+            ]);
 
-        return redirect($session->url);
+            return redirect($session->url);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Erro ao criar sessão de checkout: ' . $e->getMessage()]);
+        }
     }
 
     public function stripeCallback(Request $request)

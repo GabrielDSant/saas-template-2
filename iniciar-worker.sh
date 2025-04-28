@@ -1,0 +1,1 @@
+docker exec -it app nohup php artisan queue:work --sleep=3 --tries=3 > queue.log 2>&1 &

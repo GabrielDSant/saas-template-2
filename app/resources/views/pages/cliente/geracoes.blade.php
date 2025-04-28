@@ -2,8 +2,6 @@
 <html>
 
 @include('components.head')
-<link rel="stylesheet" href="{{ asset('node_modules/slick-carousel/slick/slick.css') }}">
-<script src="{{ asset('node_modules/slick-carousel/slick/slick.min.js') }}"></script>
 <style>
     .style-card {
         transition: all 0.3s ease;
@@ -22,6 +20,20 @@
         <main class="w-full max-w-7xl bg-white shadow-md rounded-lg mt-8 p-6">
             <!-- Upload Section -->
             <div class="text-center">
+                @if ($errors->any())
+                    <div class="mb-4 text-sm text-red-600">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <h1 class="text-2xl font-bold mb-4">Seus Créditos</h1>
+                <div class="mb-6">
+                    <p class="text-lg">Créditos atuais: <span id="currentCredits"
+                            class="font-semibold text-green-600">0</span></p>
+                </div>
                 <form action="{{ route('gerar.imagem') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label for="uploadFile1"
@@ -54,7 +66,7 @@
                             @foreach ($estilos as $estilo)
                                 <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg"
                                     data-style="{{ $estilo->name }}">
-                                    <img src="{{ asset('storage/' . $estilo->image_path) }}" alt="{{ $estilo->name }}"
+                                    <img src="{{ $estilo->image_path }}" alt="{{ $estilo->name }}"
                                         class="w-full h-46 object-cover rounded-lg mb-2">
                                     <p class="text-center font-medium text-gray-700">{{ $estilo->name }}</p>
                                 </div>
@@ -65,8 +77,8 @@
                                 @foreach ($estilos as $estilo)
                                     <div class="style-card border-2 rounded-lg p-4 cursor-pointer hover:shadow-lg"
                                         data-style="{{ $estilo->name }}">
-                                        <img src="{{ asset('storage/' . $estilo->image_path) }}"
-                                            alt="{{ $estilo->name }}" class="w-full h-46 object-cover rounded-lg mb-2">
+                                        <img src="{{ $estilo->image_path }}" alt="{{ $estilo->name }}"
+                                            class="w-full h-46 object-cover rounded-lg mb-2">
                                         <p class="text-center font-medium text-gray-700">{{ $estilo->name }}</p>
                                     </div>
                                 @endforeach
@@ -85,12 +97,20 @@
 
             <!-- Last Generated Images -->
             <div class="mt-12">
-                <h2 class="text-lg font-semibold text-gray-700 mb-4">Últimas Imagens Geradas</h2>
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">Status das Imagens Geradas</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach ($lastGeneratedImages as $image)
+                    @foreach ($generatedImages as $image)
                         <div class="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
-                            <img src="{{ asset('storage/' . $image->path) }}" alt="Imagem Gerada"
-                                class="w-full h-40 object-cover">
+                            <p class="p-4">
+                                <strong>Estilo:</strong> {{ $image->style }}<br>
+                                <strong>Status:</strong> {{ $image->status }}
+                            </p>
+                            @if ($image->status === 'completed')
+                                <img src="{{ asset('storage/' . $image->generated_image_path) }}" alt="Imagem Gerada"
+                                    class="w-full h-40 object-cover">
+                            @elseif ($image->status === 'failed')
+                                <p class="text-red-500 p-4">Erro: {{ $image->error_message }}</p>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -117,20 +137,33 @@
                 }
             });
 
-            $('.carousel').slick({
-                infinite: true,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                arrows: false,
-                dots: true,
-            });
+            // Inicializar o carousel apenas se houver itens
+            if ($('.carousel .style-card').length > 0) {
+                $('.carousel').slick({
+                    infinite: true,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    dots: true,
+                });
+            }
 
-            $('.style-card').on('click', function() {
+            // Seleção de estilos (grid e carousel)
+            $(document).on('click', '.style-card', function() {
                 $(this).toggleClass('selected');
                 const selectedStyles = $('.style-card.selected').map(function() {
                     return $(this).data('style');
                 }).get();
-                $('#selectedStyles').val(selectedStyles.join(','));
+                $('#selectedStyles').val(selectedStyles.join(',')); // Atualizar o campo oculto
+            });
+
+            // Garantir que o formulário seja enviado corretamente
+            $('form').on('submit', function(e) {
+                const selectedStyles = $('#selectedStyles').val();
+                if (!selectedStyles) {
+                    e.preventDefault();
+                    alert('Por favor, selecione pelo menos um estilo antes de enviar.');
+                }
             });
         });
     </script>

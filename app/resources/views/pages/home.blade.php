@@ -26,7 +26,8 @@
                     <div class="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
                     <div class="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
                     <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800">
-                        <img src="/img/celular.png" class="w-[272px] h-[572px] object-cover object-center" alt="">
+                        <img src="/img/celular.png" class="w-[272px] h-[572px] object-cover object-center"
+                            alt="">
                         <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/mockup-2-dark.png"
                             class="hidden dark:block w-[272px] h-[572px]" alt="">
                     </div>
@@ -41,8 +42,11 @@
 
             <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
                 <div class="text-gray-500 sm:text-lg dark:text-gray-400">
-                    <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Transforme suas fotos em memórias inesquecíveis</h2>
-                    <p class="mb-8 font-light lg:text-xl">Cada foto conta uma história, captura um momento único e guarda emoções que queremos lembrar para sempre. Nosso serviço transforma suas fotos em estilos artísticos incríveis, tornando-as ainda mais especiais.</p>
+                    <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Transforme
+                        suas fotos em memórias inesquecíveis</h2>
+                    <p class="mb-8 font-light lg:text-xl">Cada foto conta uma história, captura um momento único e
+                        guarda emoções que queremos lembrar para sempre. Nosso serviço transforma suas fotos em estilos
+                        artísticos incríveis, tornando-as ainda mais especiais.</p>
 
                     <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
                         <li class="flex space-x-3">
@@ -53,7 +57,8 @@
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Estilos artísticos únicos</span>
+                            <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Estilos
+                                artísticos únicos</span>
                         </li>
                         <li class="flex space-x-3">
 
@@ -63,7 +68,8 @@
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Momentos felizes eternizados</span>
+                            <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Momentos
+                                felizes eternizados</span>
                         </li>
                         <li class="flex space-x-3">
 
@@ -73,13 +79,16 @@
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Diversão e criatividade</span>
+                            <span class="text-base font-medium leading-tight text-gray-900 dark:text-white">Diversão e
+                                criatividade</span>
                         </li>
                     </ul>
-                    <p class="mb-8 font-light lg:text-xl">Transforme suas fotos em obras de arte no estilo Studio Ghibli, Simpsons ou outros estilos incríveis. Crie lembranças que você e sua família vão adorar revisitar.</p>
+                    <p class="mb-8 font-light lg:text-xl">Transforme suas fotos em obras de arte no estilo Studio
+                        Ghibli, Simpsons ou outros estilos incríveis. Crie lembranças que você e sua família vão adorar
+                        revisitar.</p>
                 </div>
-                <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex"
-                    src="/img/exemplo.png" alt="Exemplo de transformação de foto">
+                <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="/img/exemplo.png"
+                    alt="Exemplo de transformação de foto">
             </div>
         </div>
     </section>
@@ -95,7 +104,9 @@
                         fill="currentColor" />
                 </svg>
                 <blockquote>
-                    <p class="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">"Imagens são a essência das nossas memórias. Elas capturam momentos únicos e os transformam em lembranças eternas. Invista em suas imagens e preserve o que é mais importante."</p>
+                    <p class="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">"Imagens são a essência das
+                        nossas memórias. Elas capturam momentos únicos e os transformam em lembranças eternas. Invista
+                        em suas imagens e preserve o que é mais importante."</p>
                 </blockquote>
             </figure>
         </div>
@@ -105,15 +116,19 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
             <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
-                <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Crie imagens incríveis com facilidade</h2>
-                <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Transforme suas fotos em obras de arte únicas com nosso sistema de créditos. Pague apenas pelo que usar e explore infinitas possibilidades criativas.</p>
+                <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Crie imagens
+                    incríveis com facilidade</h2>
+                <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Transforme suas fotos em obras de
+                    arte únicas com nosso sistema de créditos. Pague apenas pelo que usar e explore infinitas
+                    possibilidades criativas.</p>
             </div>
             <div class="flex flex-col items-center justify-center space-y-8 lg:flex-row lg:space-y-0 lg:space-x-6">
 
                 <div
                     class="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
                     <h3 class="mb-4 text-2xl font-semibold">Pacote de Créditos</h3>
-                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Compre créditos e use-os para transformar suas fotos em estilos incríveis.</p>
+                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Compre créditos e use-os para
+                        transformar suas fotos em estilos incríveis.</p>
                     <div class="flex items-baseline justify-center my-8">
                         <span class="mr-2 text-5xl font-extrabold">R$12</span>
                         <span class="text-gray-500 dark:text-gray-400">= 10 créditos</span>
@@ -171,8 +186,9 @@
                             <span>Sem prazo de validade para os créditos</span>
                         </li>
                     </ul>
-                    <a href="#"
-                        class="text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900">Comprar Créditos</a>
+                    <a href="/dashboard/creditos"
+                        class="text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:ring-purple-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900">Comprar
+                        Créditos</a>
                 </div>
 
             </div>
@@ -185,10 +201,10 @@
             <div class="text-center">
                 <a href="#"
                     class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img src="/img/logo.png" class="h-6 mr-3 sm:h-9"
-                        alt="Landwind Logo" />
-                        Amor em Pixels
-                </a>            </div>
+                    <img src="/img/logo.png" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" />
+                    Amor em Pixels
+                </a>
+            </div>
         </div>
     </footer>
     <script async defer src="https://buttons.github.io/buttons.js"></script>

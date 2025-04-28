@@ -43,12 +43,21 @@ class loginController extends Controller
 
     public function register(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'birthdate' => 'required|date|before:today',
             'password' => 'required|string|min:8|confirmed',
         ]);
+
+        if ($validator = $request->getValidatorInstance()) {
+            if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+        }
 
         $user = \App\Models\User::create([
             'name' => $request->name,

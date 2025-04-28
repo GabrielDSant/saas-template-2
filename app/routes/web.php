@@ -17,7 +17,7 @@ Route::prefix('auth')->group(function () {
     Route::get('/login', [loginController::class, 'loginPage'])->name('auth.login');
     Route::post('/login', [loginController::class, 'login'])->name('auth.login.post');
     Route::get('/register', [loginController::class, 'registerPage'])->name('auth.register');
-    Route::post('/register', [loginController::class, 'register'])->name('auth.register');
+    Route::post('/register', [loginController::class, 'register'])->name('auth.register.post');
     Route::post('/logout', [loginController::class, 'logout'])->name('auth.logout');
 
     // Rotas relacionadas ao Google
@@ -30,7 +30,6 @@ Route::prefix('dashboard')->middleware(CheckIfAuthenticated::class)->group(funct
     Route::get('/admin/usuarios', [dashboardController::class, 'adminUsuarios'])->name('dashboard.usuarios');
     Route::get('/admin/estatisticas', [dashboardController::class, 'adminEstatisticas'])->name('dashboard.estatisticas');
     Route::get('/cliente', [dashboardController::class, 'clienteDashboard'])->name('dashboard.cliente');
-    Route::get('/settings', [dashboardController::class, 'settings'])->name('dashboard.settings');
     Route::get('/inicio', [dashboardController::class, 'inicio'])->name('dashboard.inicio');
     Route::get('/creditos', [dashboardController::class, 'creditos'])->name('dashboard.creditos');
     Route::get('/geracoes', [dashboardController::class, 'geracoes'])->name('dashboard.geracoes');

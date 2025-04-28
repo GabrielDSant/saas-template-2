@@ -9,6 +9,8 @@ class CreditoHistorico extends Model
 {
     use HasFactory;
 
+    protected $table = 'creditos_historico';
+
     protected $fillable = [
         'user_id',
         'description',
