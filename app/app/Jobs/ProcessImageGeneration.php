@@ -61,14 +61,23 @@ class ProcessImageGeneration implements ShouldQueue
         $apiKey = env('OPENAI_API_KEY');
         $client = new Client();
 
-        $response = $client->post('https://api.openai.com/v1/images/generations', [
+        $response = $client->post('https://api.openai.com/v1/images/edits', [
             'headers' => [
-                'Authorization' => "Bearer {$apiKey}",
-                'Content-Type' => 'application/json',
+            'Authorization' => "Bearer {$apiKey}",
             ],
-            'json' => [
-                'model' => 'gpt-image-1',
-                'prompt' => $prompt,
+            'multipart' => [
+            [
+                'name' => 'model',
+                'contents' => 'dall-e-3',
+            ],
+            [
+                'name' => 'image[]',
+                'contents' => fopen(storage_path('app/public/' . $imagePath), 'r'),
+            ],
+            [
+                'name' => 'prompt',
+                'contents' => $prompt,
+            ],
             ],
         ]);
 

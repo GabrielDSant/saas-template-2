@@ -1,5 +1,0 @@
-nohup: ignoring input
-  2025-04-26 22:35:59 App\Jobs\ProcessImageGeneration ................ RUNNING
-  2025-04-26 22:35:59 App\Jobs\ProcessImageGeneration ............ 8.17ms FAIL
-  2025-04-26 22:35:59 App\Jobs\ProcessImageGeneration ................ RUNNING
-  2025-04-26 22:36:00 App\Jobs\ProcessImageGeneration .......... 788.69ms DONE
