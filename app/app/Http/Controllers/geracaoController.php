@@ -19,14 +19,18 @@ class geracaoController extends Controller
                 'styles' => 'required|string',
             ]);
 
-            $imagePath = $request->file('image')->store('uploads', 'public');
+            // Salve a imagem original em um diretório persistente no disco 'public'
+            $originalImage = $request->file('image');
+            $originalImageName = uniqid('original_') . '.' . $originalImage->getClientOriginalExtension();
+            $originalImagePath = $originalImage->storeAs('originals', $originalImageName, 'public'); // <-- disco 'public'
+
             $styles = explode(',', $request->input('styles'));
             $user = $request->user();
 
             foreach ($styles as $styleName) {
                 $generatedImage = GeneratedImage::create([
                     'user_id' => $user->id,
-                    'original_image_path' => $imagePath,
+                    'original_image_path' => $originalImagePath,
                     'style' => $styleName,
                 ]);
 
