@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     networks:
-      - whatsapp-bot-network
+      - saas-network
     depends_on:
       - db
 
@@ -29,7 +29,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - whatsapp-bot-network
+      - saas-network
 
   redis:
     image: redis:alpine
@@ -38,10 +38,25 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - whatsapp-bot-network
+      - saas-network
+
+  worker:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    container_name: worker
+    volumes:
+      - ./app:/var/www/html
+      - ./docker/php/nginx/snippets:/etc/nginx/snippets
+    depends_on:
+      - db
+      - redis
+    networks:
+      - saas-network
+    command: ["php", "artisan", "queue:work"]
 
 networks:
-  whatsapp-bot-network:
+  saas-network:
     driver: bridge
 
 volumes:

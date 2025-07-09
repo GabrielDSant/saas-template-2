@@ -29,8 +29,11 @@ class dashboardController extends Controller
 
     public function clienteDashboard()
     {
-        // Lógica para carregar o dashboard do cliente
-        return view('pages.cliente.dashboard');
+        $user = auth()->user();
+        $currentCredits = $user->credits()->sum('amount');
+        $history = $user->creditHistory()->latest()->take(10)->get();
+        $generatedImages = \App\Models\GeneratedImage::where('user_id', $user->id)->latest()->take(6)->get();
+        return view('pages.cliente.dashboard', compact('user', 'currentCredits', 'history', 'generatedImages'));
     }
 
 

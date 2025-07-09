@@ -19,10 +19,10 @@ class geracaoController extends Controller
                 'styles' => 'required|string',
             ]);
 
-            // Salve a imagem original em um diretório persistente no disco 'public'
+            // Salve a imagem original em um diretório persistente no disco 's3'
             $originalImage = $request->file('image');
             $originalImageName = uniqid('original_') . '.' . $originalImage->getClientOriginalExtension();
-            $originalImagePath = $originalImage->storeAs('originals', $originalImageName, 'public'); // <-- disco 'public'
+            $originalImagePath = $originalImage->storeAs('originals', $originalImageName, 's3'); // <-- disco 's3'
 
             $styles = explode(',', $request->input('styles'));
             $user = $request->user();
