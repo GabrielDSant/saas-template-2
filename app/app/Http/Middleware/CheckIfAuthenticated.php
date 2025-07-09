@@ -17,7 +17,7 @@ class CheckIfAuthenticated
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
-            return redirect()->route('home'); // Redireciona para a homepage
+            return redirect()->route('auth.login'); // Redireciona para a homepage
         }
 
         return $next($request);

@@ -16,4 +16,10 @@ class GeneratedImage extends Model
         'status',
         'error_message',
     ];
+
+    // Adiciona métodos de policy para facilitar uso com authorize
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

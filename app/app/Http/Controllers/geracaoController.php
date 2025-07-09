@@ -5,24 +5,20 @@ namespace App\Http\Controllers;
 use App\Jobs\ProcessImageGeneration;
 use App\Models\Estilos;
 use App\Models\GeneratedImage;
-use Illuminate\Http\Request;
+use App\Http\Requests\GerarImagemRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Services\ImageProcessingService;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 
 class geracaoController extends Controller
 {
-
-    public function gerarImagem(Request $request)
+    public function gerarImagem(GerarImagemRequest $request)
     {
         try {
-            $request->validate([
-                'image' => 'required|image|mimes:png,jpg,svg,webp,gif|max:2048',
-                'styles' => 'required|string',
-            ]);
-
-            // Salve a imagem original em um diretório persistente no disco 's3'
             $originalImage = $request->file('image');
             $originalImageName = uniqid('original_') . '.' . $originalImage->getClientOriginalExtension();
-            $originalImagePath = $originalImage->storeAs('originals', $originalImageName, 's3'); // <-- disco 's3'
+            $originalImagePath = $originalImage->storeAs('originals', $originalImageName, 's3');
 
             $styles = explode(',', $request->input('styles'));
             $user = $request->user();
@@ -32,35 +28,34 @@ class geracaoController extends Controller
                     'user_id' => $user->id,
                     'original_image_path' => $originalImagePath,
                     'style' => $styleName,
+                    'status' => 'pending',
                 ]);
 
                 ProcessImageGeneration::dispatch($generatedImage);
             }
 
             return redirect()->back()->with('success', 'Imagens enviadas para processamento!');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->back()
-                ->withErrors($e->validator)
-                ->withInput();
         } catch (\Exception $e) {
+            Log::error('Erro ao processar upload de imagem', [
+                'user_id' => $request->user()->id ?? null,
+                'error' => $e->getMessage(),
+            ]);
             return redirect()->back()->withErrors(['error' => 'Erro ao processar a imagem: ' . $e->getMessage()]);
         }
     }
 
-    private function processImageWithChatGPT($imagePath, $prompt, $user)
+    public function show($id)
     {
-        // Simulação de integração com ChatGPT
-        $fullPrompt = "Transforme esta imagem com o seguinte estilo: {$prompt}.";
-        // Aqui você integraria com a API do ChatGPT e obteria o conteúdo da imagem gerada
-        $generatedImageContent = 'conteúdo binário da imagem gerada'; // Simulação do conteúdo gerado
-        return $generatedImageContent;
+        $generatedImage = GeneratedImage::findOrFail($id);
+        $this->authorize('view', $generatedImage);
+        return view('pages.cliente.imagem', compact('generatedImage'));
     }
 
-    private function saveGeneratedImage($path, $content)
+    public function destroy($id)
     {
-        if (!Storage::exists('public/generated')) {
-            Storage::makeDirectory('public/generated');
-        }
-        Storage::put('public/' . $path, $content);
+        $generatedImage = GeneratedImage::findOrFail($id);
+        $this->authorize('delete', $generatedImage);
+        $generatedImage->delete();
+        return redirect()->route('dashboard.geracoes')->with('success', 'Imagem excluída com sucesso!');
     }
 }

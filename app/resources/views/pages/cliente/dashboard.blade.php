@@ -58,41 +58,34 @@
                         class="text-purple-600 hover:underline">Ver todas</a>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    @forelse($generatedImages as $image)
-                    <div class="bg-white rounded-lg shadow border overflow-hidden flex flex-col">
-                        <div class="h-40 bg-gray-100 flex items-center justify-center">
-                            @if($image->status === 'completed')
-                            <img src="{{ Storage::disk('s3')->url($image->generated_image_path) }}" alt="Imagem Gerada"
-                                class="object-cover w-full h-full">
-                            @elseif($image->status === 'failed')
-                            <span class="text-red-500">Erro</span>
-                            @else
-                            <span class="text-gray-400">Processando...</span>
+                    @forelse($generatedImages as $img)
+                    <div class="bg-gray-50 rounded-lg shadow p-4 flex flex-col items-center">
+                        <img src="{{ $img->generated_image_path ? Storage::disk('s3')->url($img->generated_image_path) : '/img/placeholder.png' }}"
+                            alt="Imagem Gerada" class="w-full h-40 object-cover rounded mb-2">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span
+                                class="text-xs px-2 py-1 rounded @if($img->status=='completed') bg-green-100 text-green-700 @elseif($img->status=='processing') bg-yellow-100 text-yellow-700 @else bg-red-100 text-red-700 @endif">
+                                @if($img->status=='completed') Concluída @elseif($img->status=='processing') Processando @else Erro @endif
+                            </span>
+                            @if($img->status=='failed')
+                            <span class="text-xs text-red-500">{{ $img->error_message }}</span>
                             @endif
                         </div>
-                        <div class="p-4 flex-1 flex flex-col justify-between">
-                            <div>
-                                <div class="font-semibold text-gray-700">Estilo: {{ $image->style }}</div>
-                                <div class="text-sm text-gray-500">Status: {{ ucfirst($image->status) }}</div>
-                            </div>
-                            @if($image->status === 'failed')
-                            <div class="text-xs text-red-500 mt-2">{{ $image->error_message }}</div>
-                            @endif
-                        </div>
+                        <div class="text-xs text-gray-500 mb-2">Estilo: <b>{{ $img->style }}</b></div>
+                        @if($img->status=='completed')
+                        <a href="{{ Storage::disk('s3')->url($img->generated_image_path) }}" download
+                            class="text-purple-600 hover:underline text-sm">Baixar</a>
+                        @endif
                     </div>
                     @empty
-                    <div class="col-span-3 text-gray-400">Nenhuma imagem gerada ainda.</div>
+                    <div class="col-span-3 text-gray-400 text-center">Nenhuma imagem gerada ainda. <a
+                            href="{{ route('dashboard.geracoes') }}" class="text-purple-600 hover:underline">Experimente
+                            agora!</a></div>
                     @endforelse
                 </div>
             </div>
-            <!-- Banner Promocional -->
-            <div
-                class="w-full bg-gradient-to-r from-orange-400 to-pink-500 rounded-lg p-8 flex items-center justify-center shadow mb-4 min-h-[120px]">
-                <span class="text-white text-xl font-bold">Em breve: novidades e promoções aqui!</span>
-            </div>
         </main>
     </div>
-
 </body>
 
 </html>

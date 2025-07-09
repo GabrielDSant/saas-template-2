@@ -10,7 +10,7 @@ class dashboardController extends Controller
 {
     public function inicio()
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if ($user->hasRole('admin')) {
             return redirect()->route('dashboard.admin');
@@ -29,22 +29,19 @@ class dashboardController extends Controller
 
     public function clienteDashboard()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $currentCredits = $user->credits()->sum('amount');
         $history = $user->creditHistory()->latest()->take(10)->get();
-        $generatedImages = \App\Models\GeneratedImage::where('user_id', $user->id)->latest()->take(6)->get();
+        $generatedImages = GeneratedImage::where('user_id', $user->id)->latest()->take(6)->get();
         return view('pages.cliente.dashboard', compact('user', 'currentCredits', 'history', 'generatedImages'));
     }
 
 
     public function geracoes()
     {
-        // Buscar as últimas imagens geradas do banco de dados
-        $generatedImages = GeneratedImage::where('user_id', auth()->id())->latest()->get();
-
-        // Buscar estilos do banco de dados
+        $user = Auth::user();
+        $generatedImages = GeneratedImage::where('user_id', $user->id)->latest()->get();
         $estilos = Estilos::all();
-
         return view('pages.cliente.geracoes', compact('generatedImages', 'estilos'));
     }
 
