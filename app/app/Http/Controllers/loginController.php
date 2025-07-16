@@ -30,10 +30,10 @@ class loginController extends Controller
             }
 
             Auth::logout(); // Uso correto do Auth
-            return redirect()->route('login')->withErrors(['role' => 'Unauthorized role.']);
+            return redirect()->route('auth.login')->withErrors(['role' => 'Unauthorized role.']);
         }
 
-        return redirect()->route('login')->withErrors(['email' => 'Invalid credentials.']);
+        return redirect()->route('auth.login')->withErrors(['email' => 'Invalid credentials.']);
     }
 
     public function registerPage()

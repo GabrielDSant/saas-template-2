@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Services\ImageProcessingService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
-
+use League\Flysystem\AwsS3V3\PortableVisibilityConverter;
 class geracaoController extends Controller
 {
     public function gerarImagem(GerarImagemRequest $request)

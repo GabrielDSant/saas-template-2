@@ -10,10 +10,20 @@
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 ">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-10 w-auto" src="/img/logo.png" alt="Sua Empresa">
-            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Faça login na sua conta</h2>
+            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Faça login na sua conta
+            </h2>
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            @if ($errors->any())
+            <div class="mb-4 rounded bg-red-100 p-3 text-red-700">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <form class="space-y-6" action="/auth/login" method="POST">
                 @csrf <!-- Adiciona o token CSRF -->
                 <div>
@@ -50,7 +60,8 @@
             </form>
             <p class="mt-10 text-center text-sm/6 text-gray-500">
                 Não possui uma conta?
-                <a href="{{ route('auth.register') }}" class="font-semibold text-indigo-600 hover:text-indigo-500">Crie uma</a>
+                <a href="{{ route('auth.register') }}" class="font-semibold text-indigo-600 hover:text-indigo-500">Crie uma
+                </a>
             </p>
         </div>
     </div>

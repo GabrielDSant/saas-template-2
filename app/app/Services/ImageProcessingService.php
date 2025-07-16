@@ -57,7 +57,36 @@ class ImageProcessingService
 
     private function callChatGPTAPI($imagePath, $prompt)
     {
-        // Simulação: retorna conteúdo binário fake
-        return 'conteúdo binário da imagem gerada';
+        $apiKey = env('OPENAI_API_KEY');
+        $client = new Client();
+
+        $response = $client->post('https://api.openai.com/v1/images/edits', [
+            'headers' => [
+                'Authorization' => "Bearer {$apiKey}",
+            ],
+            'multipart' => [
+                [
+                    'name' => 'model',
+                    'contents' => 'dall-e-3',
+                ],
+                [
+                    'name' => 'image[]',
+                    'contents' => fopen(storage_path('app/public/' . $imagePath), 'r'),
+                ],
+                [
+                    'name' => 'prompt',
+                    'contents' => $prompt,
+                ],
+            ],
+        ]);
+
+        $responseBody = json_decode($response->getBody(), true);
+
+        if (isset($responseBody['data'][0]['b64_json'])) {
+            return base64_decode($responseBody['data'][0]['b64_json']);
+        }
+
+        throw new \Exception('Erro ao gerar imagem: resposta inválida da API.');
     }
+
 }
